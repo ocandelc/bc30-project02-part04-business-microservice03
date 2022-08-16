@@ -18,7 +18,7 @@ public class PassiveOperationController {
     @Autowired
     private PassiveOperationServiceInte passiveOperationServiceInte;
 
-    @PostMapping
+    @PostMapping("create")
     public Mono<PassiveOperation> create(@RequestBody final PassiveOperation passiveOperation) {
         log.debug("Begin RestController create PassiveOperation");
         return passiveOperationServiceInte.create(passiveOperation);
@@ -36,13 +36,13 @@ public class PassiveOperationController {
         return passiveOperationServiceInte.readByCodePassiveOperation(codePassiveOperation);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public Mono<PassiveOperation> updateById(@RequestBody final PassiveOperation passiveOperation, @PathVariable("id") final String id) {
         log.debug("Begin RestController updateById PassiveOperation");
         return passiveOperationServiceInte.updateById(id, passiveOperation);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public Mono<Void> deleteById(@PathVariable final String id) {
         log.debug("Begin RestController deleteById PassiveOperation");
         return passiveOperationServiceInte.deleteById(id);
