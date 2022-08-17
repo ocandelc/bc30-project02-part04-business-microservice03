@@ -23,7 +23,7 @@ public class PassiveOperation {
     private Double balanceCommission;
     private Double balanceNew;
     private String state;
-    private String idOperationType;
-    private String idLocationType;
+    private String codeOperationType;
+    private String codeLocation;
 
 }

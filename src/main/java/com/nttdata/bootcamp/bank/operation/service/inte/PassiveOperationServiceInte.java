@@ -12,6 +12,8 @@ public interface PassiveOperationServiceInte {
 
     Mono<PassiveOperation> readByCodePassiveOperation(String codePassiveOperation);
 
+    //Mono<PassiveOperation> readByCodePassiveOperation02(String codePassiveOperation);
+
     Mono<PassiveOperation> updateById(final String id, final PassiveOperation passiveOperation);
 
     Mono<Void> deleteById(final String id);

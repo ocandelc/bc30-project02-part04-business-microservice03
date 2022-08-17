@@ -6,4 +6,6 @@ import reactor.core.publisher.Mono;
 
 public interface PassiveOperationDaoInte extends ReactiveMongoRepository<PassiveOperation, String> {
     Mono<PassiveOperation> readByCodePassiveOperation(String codePassiveOperation);
+
+    //Mono<PassiveOperation> readByCodePassiveOperation02(String codePassiveOperation);
 }

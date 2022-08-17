@@ -1,7 +1,9 @@
 package com.nttdata.bootcamp.bank.operation.controller;
 
 import com.nttdata.bootcamp.bank.operation.model.document.PassiveOperation;
+import com.nttdata.bootcamp.bank.operation.model.webclient.Location;
 import com.nttdata.bootcamp.bank.operation.service.inte.PassiveOperationServiceInte;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +32,21 @@ public class PassiveOperationController {
         return passiveOperationServiceInte.readAll();
     }
 
-    @GetMapping("/findByCodePassiveOperation/{codePassiveOperation}")
+    /*@GetMapping("/findByCodePassiveOperation/{codePassiveOperation}")
     public Mono<PassiveOperation> readByCodePassiveOperation(@PathVariable String codePassiveOperation) {
-        log.debug("Begin RestController readByCodeProduct PassiveOperation");
+        log.debug("Begin RestController readByCodePassiveOperation PassiveOperation");
         return passiveOperationServiceInte.readByCodePassiveOperation(codePassiveOperation);
+    }*/
+
+    @GetMapping("/findByCodePassiveOperation/{codePassiveOperation}")
+    @CircuitBreaker(name="circuitbreaker-business-microservice03-operation", fallbackMethod = "readByCodePassiveOperationFallBack")
+    public Mono<PassiveOperation> readByCodePassiveOperation(@PathVariable String codePassiveOperation) {
+        log.debug("Begin RestController readByCodePassiveOperation PassiveOperation");
+        return passiveOperationServiceInte.readByCodePassiveOperation(codePassiveOperation);
+    }
+
+    public Mono<String> readByCodePassiveOperationFallBack(String codePassiveOperation, RuntimeException runtimeException) {
+        return Mono.just("El endpoint readByCodeLocation del api bc30-project02-part04-business-microservice04 (Location)  no está respondiendo. Por favor, comunicarse con el Departamento de Tecnología de Información.");
     }
 
     @PutMapping("/{id}")
